@@ -17,7 +17,7 @@ export default function Page() {
       </div>
       <div >
         <div> 预览:</div>
-        <form action={submit}>
+        <form className=" flex flex-col gap-2" action={submit}>
           <label className="flex items-center" >
             <div className="px-2 w-[100px]">邮箱：</div>
             <input type="text" name="email" className="input" />

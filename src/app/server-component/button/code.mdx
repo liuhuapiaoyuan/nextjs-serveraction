@@ -1,6 +1,9 @@
 > 可以轻松的在服务端组件中，通过 `props` 将`ServerAction`注入到组件中，这个步骤意味着你可以可以轻松的把异步 api 注入给`ClientComponet`，并且获得**完美的`TypeScript`提示**。
 
+> **注意，该文件是 use server 的服务端组件**
+
 ```typescript
+"use server";
 import React from "react";
 
 const Page = () => {
