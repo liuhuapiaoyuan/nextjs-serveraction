@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import "highlight.js/styles/atom-one-dark.css";
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -18,4 +18,15 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* custom-styles.css */
+@layer components {
+  .btn {
+    @apply bg-blue-500 disabled:bg-blue-200 text-white data-[loading='true']:bg-blue-200 font-bold py-2 px-4 rounded-xl hover:bg-red-500 active:bg-red-500;
+  }
+  .input{
+    @apply border-2 border-gray-300 rounded-xl px-4 py-2 w-full;
+  }
 }

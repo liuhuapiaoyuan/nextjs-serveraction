@@ -1,0 +1,61 @@
+###### 我们可以在纯粹的客户端`use client`页面（**page.tsx**）中使用`serverAction`方法。但是一定要注意：
+
+> 1. `serverAction`必须封装到独立的**模块**中，比如`action.ts`。
+> 2. `action.ts`中必须标记`use server`
+> 3. `action.ts`中所有函数必须是·异步函数·
+
+可以看到，我们轻松的集成了后端调用能力，但是却**没有任何`API`接口**
+
+- `action.ts`文件内容如下：
+
+```typescript
+"use server";
+export async function getUsers() {
+  await new Promise((resolve) =>
+    setTimeout(resolve, 1000 + Math.random() * 1000)
+  );
+  return [
+    { id: 1, name: `John_${Math.random()}` },
+    { id: 2, name: `Mary_${Math.random()}` },
+    { id: 3, name: `Tom_${Math.random()}` },
+  ];
+}
+```
+
+- page.tsx`文件内容如下：
+
+```typescript
+"use client";
+import { useState } from "react";
+import { getUsers } from "./action";
+import Code from "./code.mdx";
+export default function Page() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<{ name: string }[]>([]);
+  return (
+    <div>
+      <div> 预览:</div>
+      <button
+        disabled={loading}
+        className='btn'
+        onClick={async () => {
+          setLoading(true);
+          try {
+            setData(await getUsers());
+          } finally {
+            setLoading(false);
+          }
+        }}
+      >
+        {loading ? "Loading..." : "Call Server Action"}
+      </button>
+      <div>
+        datas:
+        {data.map((item, index) => (
+          <div key={index}>{item.name}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```

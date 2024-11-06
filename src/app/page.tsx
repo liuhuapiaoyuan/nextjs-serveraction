@@ -2,23 +2,41 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
+    <div className="p-2 md:p-5">
       <h4>盘点`ServerAction`的各种玩法：</h4>
       <ol>
         <li>
-          <Link href='/server-component'>在`ReactServerComponent`中使用`ServerAction`</Link>
+          <Link href='/server-component/form'>在`ReactServerComponent`中使用`ServerAction`</Link>
           <ul>
             <li>
-              <Link href="/server-component/form">1. 在`Form`中是用</Link>
+              <Link href="/server-component/form">1. 在`Form`中是直接使用异步函数</Link>
             </li>
             <li>
-              <Link href="/server-component/use-in-button">2. 在 `Button`等客户端组件中使用</Link>
+              <Link href="/server-component/submit-button">2. 封装`SubmitButton`组件，追踪加载状态</Link>
+            </li>
+            <li>
+              <Link href="/server-component/button">3. 在 `Button`/`自定义客户端组件`等客户端组件中使用</Link>
             </li>
           </ul>
         </li>
         <li>
-          <Link href='/client--component'>在`ClientComponent`中使用`ServerAction`</Link>
+          <Link href='/client-component'>在`ClientComponent`中使用`ServerAction`</Link>
+          <ul>
+            <li>
+              <Link href="/client-component">1. 在`use client`客户端页面中使用</Link>
+            </li>
+            <li>
+              <Link href="/client-component/use-query">2. 在` @tanstack/react-query`中使用`ServerAction`</Link>
+            </li>
+            <li>
+              <Link href="/client-component/use-mutation">3. 在` @tanstack/react-query/mutation`中使用`ServerAction`</Link>
+            </li>
+          </ul>
         </li>
+        <li>
+          <Link href='/statefull-form'>使用`StateFullForm`简化 <span className="text-red-800 font-bold">服务端数据校验</span></Link>
+        </li>
+
       </ol>
     </div>
   );

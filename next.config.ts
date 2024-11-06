@@ -1,12 +1,11 @@
 import createMDX from '@next/mdx';
 import type { NextConfig } from "next";
+import remarkGfm from "remark-gfm";
 
+import rehypeHighlight from "rehype-highlight";
 
 
 const nextConfig: NextConfig = {
-  experimental: {
-    mdxRs: true,
-  },
   /* config options here */
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
@@ -16,8 +15,8 @@ const withMDX = createMDX({
 
   // Add markdown plugins here, as desired
   options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeHighlight],
   },
 })
 

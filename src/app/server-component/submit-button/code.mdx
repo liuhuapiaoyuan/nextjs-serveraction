@@ -1,0 +1,48 @@
+`SubmitButton`封装
+
+```typescript
+"use client";
+import { useFormStatus } from "react-dom";
+
+export function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type='submit' className='btn' disabled={pending}>
+      {pending ? "Submitting..." : "提交"}
+    </button>
+  );
+}
+```
+
+`表单`
+
+```typescript
+import React from "react";
+
+const MyComponent = () => {
+  return (
+    <form
+      className='grid   gap-2'
+      action={async (data: FormData) => {
+        "use server";
+        console.log("submitting form");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        redirect(
+          `/server-component/form?username=${data.get("username")?.toString()}`
+        );
+      }}
+    >
+      <label className='flex items-center'>
+        <div className='px-2 w-[100px]'>用户名：</div>
+        <input type='text' name='username' className='input' />
+      </label>
+      <label className='flex items-center'>
+        <div className='px-2 w-[100px]'>密码：</div>
+        <input type='password' name='password' className='input' />
+      </label>
+      {username && username.length > 0 && <div>提交数据：{username}</div>}
+      <SubmitButton />
+    </form>
+  );
+};
+```

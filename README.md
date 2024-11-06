@@ -33,3 +33,17 @@
     ├── 总结 Server Actions 的优势和适用场景
     └── 展望 Server Actions 的未来发展
 ```
+
+## 引言
+
+### 介绍 Server Actions 的概念和重要性
+
+Server Actions 是 Next.js 官方推出的一种新特性，它可以让我们在 React Server Component (RSC) 中定义和执行服务器端的操作，而不需要编写额外的代码。
+
+### 1. 在 React Server Component 中使用
+
+#### 1.1 使用 Form 表单内嵌使用
+
+#### 1.2 封装`SubmitButton`组件，追踪表单的提交状态
+
+#### 1.3 直接使用 Button 按钮触发 Server Action

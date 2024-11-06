@@ -1,0 +1,22 @@
+> 可以轻松的在服务端组件中，通过 `props` 将`ServerAction`注入到组件中，这个步骤意味着你可以可以轻松的把异步 api 注入给`ClientComponet`，并且获得**完美的`TypeScript`提示**。
+
+```typescript
+import React from "react";
+
+const Page = () => {
+  const onCall = async () => {
+    "use server";
+    console.log("submitting form");
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    redirect(`/server-component/button?username=${Math.random()}`);
+  };
+  return (
+    <>
+      <LoadingClient onCall={onCall} />
+      <button className='btn' onClick={onCall}>
+        直接通过button调用
+      </button>
+    </>
+  );
+};
+```
