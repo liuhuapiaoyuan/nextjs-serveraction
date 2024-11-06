@@ -1,19 +1,17 @@
 'use server'
-import { z } from 'zod'
+import { CreateUserSchema } from './ValidateError';
 
-const schema = z.object({
-  email: z.string().email({
-    message: '邮箱格式不正确',
-  }),
-})
 
-export default async function createUser(formData: FormData) {
-  const validatedFields = schema.safeParse({
+
+
+export  async function createUser(formData: FormData) {
+  const validatedFields = CreateUserSchema.safeParse({
     email: formData.get('email'),
   })
   await new Promise((resolve) => setTimeout(resolve, 1000))
   if (!validatedFields.success) {
-    throw new Error(validatedFields.error.toString())
+    return {error:validatedFields.error.format()}
   }
-  return formData.get('email')?.toString()
+  return {data:formData.get('email')?.toString()}
+
 }

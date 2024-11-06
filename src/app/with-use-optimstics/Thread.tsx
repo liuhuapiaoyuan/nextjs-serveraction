@@ -1,0 +1,38 @@
+"use client";
+
+import { SubmitButton } from "@/components/ui/SubmitButton";
+import { useOptimistic } from "react";
+import { Message, send } from "./action";
+
+export function Thread({ messages }: { messages: Message[] }) {
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic<
+    Message[],
+    string
+  >(messages, (state, newMessage) => [
+    ...state,
+    { message: newMessage, state: "loading" },
+  ]);
+
+  const formAction = async (formData: FormData) => {
+    const message = formData.get("message") as string;
+    addOptimisticMessage(message);
+    await send(message);
+  };
+
+  return (
+    <div>
+      <ul>
+        {optimisticMessages.map((m, i) => (
+          <li key={i}>
+            {m.message}
+            {m.state && `(${m.state})`}
+          </li>
+        ))}
+      </ul>
+      <form action={formAction}>
+        <input className="input" type="text" name="message" />
+        <SubmitButton />
+      </form>
+    </div>
+  );
+}

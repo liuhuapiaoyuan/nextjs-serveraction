@@ -1,32 +1,24 @@
+import { useActionState } from "react";
 
-import { useActionState } from 'react'
-
+export type State<T, E> = {
+  data?: T | undefined;
+  error?: E | undefined;
+};
 /**
- * StateFull Form的Action
- */
-export type ActionResponse<T = null> = {
-  error?: Error
-  data?: T
-}
-
-/**
- * 简化版的useStateForm，只返回data和error 
+ * 简化版的useStateForm，只返回data和error
  * @param action
  * @returns
  */
-export function useStateForm<T, E extends Error>(action: (formData: FormData) => Promise<T>, permalink?: string,) {
-  return useActionState(
-    async (_pre: ActionResponse<T>, formData: FormData) => {
-      try {
-        const data = await action(formData)
-        return { data }
-      } catch (error) {
-        return {
-          error: error as E,
-        }
-      }
+export function useStateForm<T, E>(
+  action: (formData: FormData) => Promise<State<T, E>>,
+  permalink?: string
+) {
+  return useActionState<State<T, E>, FormData>(
+    async (_pre, formData) => {
+      const result = await action(formData);
+      return result;
     },
-    {} as ActionResponse<T>,
-    permalink,
-  )
+    [undefined, undefined] as State<T, E>,
+    permalink
+  );
 }

@@ -1,5 +1,5 @@
 > 我们刚刚的演示可以称之为`StateLessForm`，因为我们没有追踪表单的状态，但是为了处理表单的数据校验错误，我们需要引入`useActionState`这个 hook。
-
+> 让我们的表单能够支持错误状态的追踪
 ```typescript
 "use client";
 
@@ -11,13 +11,18 @@ import Code from "./code.mdx";
 export default function Page() {
   const [{ error, data }, submit] = useStateForm(createUser);
   return (
-    <form action={submit}>
-      <label className='flex items-center'>
-        <div className='px-2 w-[100px]'>邮箱：</div>
-        <input type='text' name='email' className='input' />
+    <form className=" flex flex-col gap-2" action={submit}>
+      <label className="flex items-center">
+        <div className="px-2 w-[100px]">邮箱：</div>
+        <input type="text" name="email" className="input" />
       </label>
+      {error?.email?._errors && (
+        <div className="text-red-600">
+          {error?.email?._errors?.join("")}
+        </div>
+      )}
+
       {data && <div> 提交数据:{data} </div>}
-      {error && <div> 提交数据:{error.message} </div>}
       <SubmitButton />
     </form>
   );
