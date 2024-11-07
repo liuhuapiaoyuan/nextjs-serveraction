@@ -60,6 +60,9 @@ export default function Home() {
             配合`useOptimistic`实现更好的UI交互体验
           </Link>
         </li>
+        <li>
+          <Link href="/crud">抛弃`API`,实现一个完整的`CRUD`</Link>
+        </li>
       </ol>
     </div>
   );
