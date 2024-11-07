@@ -12,7 +12,7 @@ export default async function UpdateGoodsPage({
   const { id } = await params;
   const item = await getGoodsById(id);
   if (!item) {
-    redirect("/crud");
+    redirect("/crud/list");
   }
   return (
     <Modal title="更新商品">

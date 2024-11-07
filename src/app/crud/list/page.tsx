@@ -1,6 +1,6 @@
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import Link from "next/link";
-import { deleteGoods, getGoodsList } from "./action";
+import { deleteGoods, getGoodsList } from "../action";
 
 export default async function Page() {
   const goodsList = await getGoodsList();

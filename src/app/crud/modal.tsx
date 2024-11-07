@@ -12,7 +12,7 @@ export function Modal({
   }
 
   return (
-    <div className="modal-backdrop fixed inset-0 backdrop-blur flex items-center justify-center">
+    <div className="fixed inset-0 backdrop-blur flex items-center justify-center">
       <dialog
         className=" border shadow grid p-2 rounded-md min-w-96"
         onClose={onDismiss}

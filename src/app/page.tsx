@@ -61,7 +61,7 @@ export default function Home() {
           </Link>
         </li>
         <li>
-          <Link href="/crud">
+          <Link href="/crud/list">
             <span className="px-1 mr-2  border-[3px] bg-red-500 text-white border-yellow-500">
               实战
             </span>

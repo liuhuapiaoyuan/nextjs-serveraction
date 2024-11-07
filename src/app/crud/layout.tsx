@@ -8,6 +8,7 @@ export default function Layout({
     <>
       {children}
       {modal}
+      <div id="modal-root" />
     </>
   );
 }
