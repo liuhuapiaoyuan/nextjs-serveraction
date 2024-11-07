@@ -1,49 +1,37 @@
-# 盘点 Next.js `Server Actions` 的玩法
+# 也许你并不需要状态管理，也不需要**ApiEndpoint** ，盘点**ServerAction** 的各种玩法
 
-```shell
+> 最新的ServerAction配合服务端组件，基本完成了完善Nextjs对于数据获取修改(DataFetch/mutation)的闭合。 本文尝试从实践的角度，多方位实验**ServerAction**的玩法🌟
 
-├── 引言
-│   ├── 介绍 Server Actions 的概念和重要性
-│   └── 概述本文将探讨的几种用法
-├── Server Actions 的基本概念
-│   ├── 什么是 Server Actions？
-│   ├── Server Actions 与传统 API 的区别
-│   └── Server Actions 的优势和适用场景
-├── Server Actions 的多种用法
-│   ├── 在 React Server Component 中使用 Form 表单内嵌使用
-│   │   ├── 场景描述
-│   │   └── 使用 Server Actions 处理表单提交
-│   ├── 在 RSC 中，使用其他客户端组件触发 Server Action
-│   │   ├── 场景描述
-│   │   └── 通过按钮点击触发 Server Action
-│   ├── 在客户端组件中使用 Stateless Form (无状态表单)
-│   │   ├── 场景描述
-│   │   └── 使用 `action.ts` 文件定义 Server Action
-│   ├── 在客户端组件中使用 Stateful Form (有状态表单)
-│   │   ├── 场景描述
-│   │   └── 使用 `useActionState` 管理 Server Action 的状态
-│   ├── 和其他第三方请求库配套使用，比如 `ahooks/useRequest`
-│   │   ├── 场景描述
-│   │   └── 结合 `useRequest` 处理数据获取和状态管理
-│   └── 🧪试验：我们还需要 API Router 吗？
-│       ├── 场景描述
-│       └── 探讨 Server Actions 是否可以替代传统的 API Router
-└── 总结
-    ├── 回顾 Server Actions 的几种用法
-    ├── 总结 Server Actions 的优势和适用场景
-    └── 展望 Server Actions 的未来发展
-```
+![](https://picsum.photos/1200/300)
 
-## 引言
 
-### 介绍 Server Actions 的概念和重要性
+## 在常规的`ReactServerComponent` 中使用 `ServerAction`
 
-Server Actions 是 Next.js 官方推出的一种新特性，它可以让我们在 React Server Component (RSC) 中定义和执行服务器端的操作，而不需要编写额外的代码。
+###  在 `Form` 中直接使用异步函数
+- 在 `Form` 组件中，可以直接调用异步的 `ServerAction` 函数来处理表单提交。
 
-### 1. 在 React Server Component 中使用
+###  封装 `SubmitButton` 组件，追踪加载状态
+- 创建一个 `SubmitButton` 组件，用于封装表单提交按钮，并追踪提交过程中的加载状态，提升用户体验。
 
-#### 1.1 使用 Form 表单内嵌使用
+###  在 `Button`/`自定义客户端组件` 等客户端组件中使用
+- 在客户端组件中，如 `Button` 或自定义的客户端组件中，调用 `ServerAction` 来处理服务端逻辑。
 
-#### 1.2 封装`SubmitButton`组件，追踪表单的提交状态
+## 在 `ClientComponent` 中使用 `ServerAction`
 
-#### 1.3 直接使用 Button 按钮触发 Server Action
+### 在 `use client` 客户端页面中使用
+- 在客户端页面中，使用 `use client` 指令来调用 `ServerAction`，处理客户端与服务端的数据交互。
+
+### 在 `@tanstack/react-query` 中使用 `ServerAction`
+- 结合 `@tanstack/react-query`，使用 `ServerAction` 来处理数据查询和更新，简化数据管理。
+
+### 在 `@tanstack/react-query/mutation` 中使用 `ServerAction`
+- 在 `@tanstack/react-query` 的 `mutation` 中使用 `ServerAction`，实现数据的增删改操作。
+
+## 使用 `StateFullForm` 简化服务端数据校验
+- 使用 `StateFullForm` 组件来简化服务端数据校验逻辑，提升开发效率。
+
+## 配合 `useOptimistic` 实现更好的 UI 交互体验
+- 结合 `useOptimistic` 钩子，实现乐观更新，提升用户交互体验。
+
+## 实践：能否抛弃 `API`，实现一个完整的 `CRUD`
+- 通过 `ServerAction`，完全抛弃传统的 `API` 调用，实现一个完整的 `CRUD` 应用。

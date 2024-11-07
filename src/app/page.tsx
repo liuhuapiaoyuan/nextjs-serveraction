@@ -61,7 +61,12 @@ export default function Home() {
           </Link>
         </li>
         <li>
-          <Link href="/crud">抛弃`API`,实现一个完整的`CRUD`</Link>
+          <Link href="/crud">
+            <span className="px-1 mr-2  border-[3px] bg-red-500 text-white border-yellow-500">
+              实战
+            </span>
+            抛弃`API`,实现一个完整的`CRUD`
+          </Link>
         </li>
       </ol>
     </div>
