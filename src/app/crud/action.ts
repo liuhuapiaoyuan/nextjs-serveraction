@@ -11,7 +11,9 @@ export type Goods = {
 
 /* 扩展global类型 */
 declare global {
+  /* eslint-disable no-var */
   var goodsList: Goods[];
+  /* eslint-enable no-var */
 }
 
 global.goodsList = global.goodsList ?? ([] as Goods[]);

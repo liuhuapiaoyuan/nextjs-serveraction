@@ -9,7 +9,9 @@ export type Message = {
 
 /* 扩展global类型 */
 declare global {
-  var messages: Message[]
+ /* eslint-disable no-var */
+ var messages: Message[];
+ /* eslint-enable no-var */
 }
 
 global.messages =  global.messages ??  [] as Message[]
