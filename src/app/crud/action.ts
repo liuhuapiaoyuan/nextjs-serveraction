@@ -60,7 +60,5 @@ export async function getGoodsList() {
   return global.goodsList;
 }
 export async function getGoodsById(id: string) {
-  "use cache"
-  cacheTag("goodsItem" , id)
   return global.goodsList.find((goods) => goods.id === id);
 }
