@@ -1,6 +1,6 @@
 'use server'
 
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 
 export type Message = {
@@ -20,7 +20,7 @@ global.messages =  global.messages ??  [] as Message[]
 export async function send(message:string) {
   await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 1000));
   global.messages.push({message})
-  revalidateTag("messages")
+  revalidatePath("/with-use-optimstics");
 }
 
 export async function get() {

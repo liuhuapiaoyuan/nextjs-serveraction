@@ -1,10 +1,11 @@
 "use client";
 
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { useOptimistic } from "react";
+import { use, useOptimistic } from "react";
 import { Message, send } from "./action";
 
-export function Thread({ messages }: { messages: Message[] }) {
+export function Thread(props: { messages: Promise<Message[]> }) {
+  const messages = use(props.messages);
   const [optimisticMessages, addOptimisticMessage] = useOptimistic<
     Message[],
     string
