@@ -1,6 +1,6 @@
 'use server'
 
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag, revalidateTag } from "next/cache"
+import { revalidateTag } from "next/cache"
 export type Message = {
   message: string
   state?:"loading"
@@ -21,9 +21,6 @@ export async function send(message:string) {
   revalidateTag("messages")
 }
 
-export async function get() {
-  'use cache'
-  cacheLife('minutes')
-  cacheTag('messages')
+export async function get() { 
    return  global.messages
 }

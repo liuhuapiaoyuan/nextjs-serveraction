@@ -25,7 +25,7 @@ export default async function Page({
         </div>
         <div>
           <div> 预览:</div>
-          <Form replace className="grid   gap-2" action={onSubmit}>
+          <Form className="grid   gap-2" action={onSubmit}>
             <label className="flex items-center">
               <div className="px-2 w-[100px]">用户名：</div>
               <input type="text" name="username" className="input" />

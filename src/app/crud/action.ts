@@ -1,6 +1,6 @@
 "use server";
 
-import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
 
 export type Goods = {
@@ -50,12 +50,9 @@ export async function updateGoods(data: FormData) {
     global.goodsList[index] = goods;
   }
   revalidateTag("goodsList");
-  revalidateTag("goodsItem");
-  redirect("/crud",RedirectType.replace);
+  redirect("/crud", RedirectType.replace);
 }
 export async function getGoodsList() {
-    "use cache"
-    cacheTag("goodsList")
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return global.goodsList;
 }
