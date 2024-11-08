@@ -5,7 +5,7 @@
 
 > 最新的ServerAction配合服务端组件，基本完成了完善Nextjs对于数据获取修改(DataFetch/mutation)的闭合。 本文尝试从实践的角度，多方位实验**ServerAction**的玩法🌟
 
-![](https://picsum.photos/1200/300)
+![在线预览](docs/main.png)
 
 
 ## 在常规的`ReactServerComponent` 中使用 `ServerAction`
