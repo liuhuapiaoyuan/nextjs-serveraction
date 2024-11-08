@@ -1,6 +1,6 @@
 'use server'
 
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag, revalidatePath } from "next/cache"
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag, revalidateTag } from "next/cache"
 export type Message = {
   message: string
   state?:"loading"
@@ -18,7 +18,7 @@ global.messages =  global.messages ??  [] as Message[]
 export async function send(message:string) {
   await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 1000));
   global.messages.push({message})
-  revalidatePath("messages")
+  revalidateTag("messages")
 }
 
 export async function get() {
