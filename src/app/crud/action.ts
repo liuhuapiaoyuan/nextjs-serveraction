@@ -27,7 +27,7 @@ export async function addGoods(formData: FormData) {
   };
   global.goodsList.push(goods);
   revalidatePath("/crud/list");
-  redirect("/crud/list");
+  redirect("/");
 }
 
 export async function deleteGoods(data: FormData) {
@@ -50,7 +50,7 @@ export async function updateGoods(data: FormData) {
     global.goodsList[index] = goods;
   }
   revalidatePath("/crud/list");
-  redirect("/crud/list",RedirectType.replace);
+  redirect("/",RedirectType.replace);
 }
 export async function getGoodsList() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
