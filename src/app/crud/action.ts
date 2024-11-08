@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
 
 export type Goods = {
@@ -26,7 +26,7 @@ export async function addGoods(formData: FormData) {
     price: parseFloat(formData.get("price") as string) ?? 0,
   };
   global.goodsList.push(goods);
-  revalidateTag("goodsList");
+  revalidatePath("/crud");
   redirect("/crud");
 }
 
@@ -34,7 +34,7 @@ export async function deleteGoods(data: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const id = data.get("id") as string;
   global.goodsList = global.goodsList.filter((goods) => goods.id !== id);
-  revalidateTag("goodsList");
+  revalidatePath("/crud");
 }
 
 export async function updateGoods(data: FormData) {
@@ -49,7 +49,7 @@ export async function updateGoods(data: FormData) {
   if (index !== -1) {
     global.goodsList[index] = goods;
   }
-  revalidateTag("goodsList");
+  revalidatePath("/crud");
   redirect("/crud", RedirectType.replace);
 }
 export async function getGoodsList() {
