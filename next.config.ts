@@ -6,6 +6,9 @@ import rehypeHighlight from "rehype-highlight";
 
 
 const nextConfig: NextConfig = {
+  experimental: {
+    dynamicIO: true,
+  },
   /* config options here */
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
