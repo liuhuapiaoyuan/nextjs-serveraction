@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { unstable_cacheTag as cacheTag, revalidateTag } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
 
 export type Goods = {
@@ -26,15 +26,15 @@ export async function addGoods(formData: FormData) {
     price: parseFloat(formData.get("price") as string) ?? 0,
   };
   global.goodsList.push(goods);
-  revalidatePath("/crud/list");
-  redirect("/");
+  revalidateTag("goodsList");
+  redirect("/crud");
 }
 
 export async function deleteGoods(data: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const id = data.get("id") as string;
   global.goodsList = global.goodsList.filter((goods) => goods.id !== id);
-  revalidatePath("/crud/list");
+  revalidateTag("goodsList");
 }
 
 export async function updateGoods(data: FormData) {
@@ -49,13 +49,18 @@ export async function updateGoods(data: FormData) {
   if (index !== -1) {
     global.goodsList[index] = goods;
   }
-  revalidatePath("/crud/list");
-  redirect("/",RedirectType.replace);
+  revalidateTag("goodsList");
+  revalidateTag("goodsItem");
+  redirect("/crud",RedirectType.replace);
 }
 export async function getGoodsList() {
+    "use cache"
+    cacheTag("goodsList")
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return global.goodsList;
 }
 export async function getGoodsById(id: string) {
+  "use cache"
+  cacheTag("goodsItem" , id)
   return global.goodsList.find((goods) => goods.id === id);
 }

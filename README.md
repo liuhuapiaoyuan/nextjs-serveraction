@@ -83,7 +83,7 @@
 
 
 
-[在线预览](https://nextjs-serveraction.ggss.club/server-component/crud/list)
+[在线预览](https://nextjs-serveraction.ggss.club/server-component/crud)
 
 
 ![实践：能否抛弃 `API`，实现一个完整的 `CRUD` 应用](docs/9.png)

@@ -11,10 +11,10 @@ export default async function UpdateGoodsPage({
   const { id } = await params;
   const item = await getGoodsById(id);
   if (!item) {
-    redirect("/crud/list");
+    redirect("/crud");
   }
   return (
-    <PageContainer title="更新商品" backRef="/crud/list">
+    <PageContainer title="更新商品" backRef="/crud">
       <form className="grid gap-5" action={updateGoods}>
         <label>商品名称</label>
         <input defaultValue={item.id} type="hidden" name="id" />

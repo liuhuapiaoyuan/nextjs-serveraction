@@ -1,12 +1,12 @@
+import { PageContainer } from "@/components/ui/PageContainer";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import Link from "next/link";
-import { deleteGoods, getGoodsList } from "../action";
+import { deleteGoods, getGoodsList } from "./action";
 
 export default async function Page() {
   const goodsList = await getGoodsList();
   return (
-    <div>
-      <h1>商品列表</h1>
+    <PageContainer title="商品列表">
       <Link className="btn" href="/crud/create">
         创建
       </Link>
@@ -39,6 +39,6 @@ export default async function Page() {
           ))}
         </tbody>
       </table>
-    </div>
+    </PageContainer>
   );
 }
