@@ -1,20 +1,13 @@
-###### 很多同学认为，拥有`ServerAction`+`useFormState`，是不是可以放弃·`useQuery`？
+###### 通过`useMutation`可以实现对服务器端的操作，比如`create`，`update`，`delete`，`patch`。
 
-> 其实，`useQuery`的功能远不止于此。它默认的缓存功能，可以极大优化我们的客户端体验，并且可以与`ServerAction`配合使用，实现更加强大的功能。
 
 - `action.ts`文件内容如下：
 
 ```typescript
 "use server";
-export async function getUsers() {
-  await new Promise((resolve) =>
-    setTimeout(resolve, 1000 + Math.random() * 1000)
-  );
-  return [
-    { id: 1, name: `John_${Math.random()}` },
-    { id: 2, name: `Mary_${Math.random()}` },
-    { id: 3, name: `Tom_${Math.random()}` },
-  ];
+export async function send(message:string) {
+  await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 1000));
+  global.messages.push({message})
 }
 ```
 
@@ -22,27 +15,32 @@ export async function getUsers() {
 
 ```typescript
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery , mutationFn } from "@tanstack/react-query";
 import { getUsers } from "../action";
 import Code from "./code.mdx";
 
 export default function Page() {
-  const query = useQuery({ queryKey: ["users"], queryFn: getUsers });
+   const messages = useQuery({ queryKey: ["messages"], queryFn: get });
+  const mutation = useMutation({
+    mutationFn: send,
+    onSettled: () => messages.refetch(),
+  });
+
   return (
     <>
-      <button
-        disabled={query.isLoading}
-        className='btn'
-        onClick={() => query.refetch()}
-      >
-        {query.isLoading ? "Loading..." : "Call Server Action"}
-      </button>
-      <div>
-        datas:
-        {query.data?.map((item, index) => (
-          <div key={index}>{item.name}</div>
+      <ul>
+        {messages.data?.map((m, i) => (
+          <li key={i}> {m.message} </li>
         ))}
-      </div>
+      </ul>
+      <form
+        action={async (data) =>
+          mutation.mutate(data.get("message")!.toString())
+        }
+      >
+        <input className="input" type="text" name="message" />
+        <SubmitButton />
+      </form>
     </>
   );
 }

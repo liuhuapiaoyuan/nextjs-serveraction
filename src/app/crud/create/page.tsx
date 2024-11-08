@@ -4,7 +4,7 @@ import { addGoods } from "../action";
 
 export default function CreatePage() {
   return (
-    <PageContainer title="创建商品" backRef="/crud">
+    <PageContainer title="创建商品" backRef="/crud/list">
       <form className="grid gap-5" action={addGoods}>
         <label>商品名称</label>
         <input className="input" type="text" name="name" />
