@@ -2,7 +2,7 @@ import { PageContainer } from "@/components/ui/PageContainer";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import Link from "next/link";
 import { deleteGoods, getGoodsList } from "./action";
-export const runtime = "nodejs";
+export const fetchCache = "force-no-store";
 
 export default async function Page() {
   const goodsList = await getGoodsList();
