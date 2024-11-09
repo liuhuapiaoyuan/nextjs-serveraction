@@ -57,5 +57,6 @@ export async function getGoodsList() {
   return global.goodsList;
 }
 export async function getGoodsById(id: string) {
+  await new Promise((resolve) => setTimeout(resolve, 100));
   return global.goodsList.find((goods) => goods.id === id);
 }
