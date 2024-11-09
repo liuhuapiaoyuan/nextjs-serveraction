@@ -1,12 +1,11 @@
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { use } from "react";
 import { Goods } from "./action";
 
 export function UpdateForm(props: {
-  item: Promise<Goods | undefined>;
+  item?: Goods;
   update: (data: FormData) => Promise<void>;
 }) {
-  const item = use(props.item);
+  const item = props.item;
   if (!item) {
     return null;
   }
