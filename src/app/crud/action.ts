@@ -1,22 +1,9 @@
 "use server";
 
+import { Goods, goodsService } from "@/service/goods.service";
 import { revalidatePath } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
-
-export type Goods = {
-  id: string;
-  name: string;
-  price: number;
-};
-
-/* 扩展global类型 */
-declare global {
-  /* eslint-disable no-var */
-  var goodsList: Goods[];
-  /* eslint-enable no-var */
-}
-
-global.goodsList = global.goodsList ?? ([] as Goods[]);
+ 
 
 export async function addGoods(formData: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -25,7 +12,7 @@ export async function addGoods(formData: FormData) {
     name: formData.get("name") as string,
     price: parseFloat(formData.get("price") as string) ?? 0,
   };
-  global.goodsList.push(goods);
+  goodsService.addGoods(goods);
   revalidatePath("/crud");
   redirect("/crud");
 }
@@ -33,7 +20,7 @@ export async function addGoods(formData: FormData) {
 export async function deleteGoods(data: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const id = data.get("id") as string;
-  global.goodsList = global.goodsList.filter((goods) => goods.id !== id);
+  goodsService.deleteGoods(id);
   revalidatePath("/crud");
 }
 
@@ -45,18 +32,16 @@ export async function updateGoods(data: FormData) {
     name: data.get("name") as string,
     price: parseFloat(data.get("price") as string) ?? 0,
   };
-  const index = global.goodsList.findIndex((goods) => goods.id === id);
-  if (index !== -1) {
-    global.goodsList[index] = goods;
-  }
+  
+  goodsService.updateGoods(id,goods)
   revalidatePath("/crud");
   redirect("/crud", RedirectType.replace);
 }
 export async function getGoodsList() {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return global.goodsList;
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return goodsService.getGoodsList();
 }
 export async function getGoodsById(id: string) {
   await new Promise((resolve) => setTimeout(resolve, 100));
-  return global.goodsList.find((goods) => goods.id === id);
+  return goodsService.getGoodsById(id);
 }

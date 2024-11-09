@@ -1,5 +1,5 @@
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { Goods } from "./action";
+import { Goods } from "@/service/goods.service";
 
 export function UpdateForm(props: {
   item?: Goods;
