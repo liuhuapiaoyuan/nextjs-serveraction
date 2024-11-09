@@ -3,7 +3,7 @@ import { Modal } from "../../../modal";
 import { UpdateForm } from "@/app/crud/update-form";
 import Link from "next/link";
 import { getGoodsById, updateGoods } from "../../../action";
-export const runtime = "nodejs";
+export const fetchCache = "force-no-store";
 
 export default async function UpdateGoodsPage({
   params,

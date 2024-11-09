@@ -1,6 +1,7 @@
 import { addGoods } from "../../action";
 import { CreateForm } from "../../create-form";
 import { Modal } from "../../modal";
+export const fetchCache = "force-no-store";
 
 export default function CreatePage() {
   return (
