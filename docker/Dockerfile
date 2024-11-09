@@ -1,12 +1,9 @@
-
-FROM  node:20.0.0-alpine as base
-
-
+FROM oven/bun:1-alpine AS base
 FROM base AS deps
 # 设置工作目录
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
 
 # 创建编译环境
 FROM base as builder
@@ -14,11 +11,9 @@ WORKDIR /app
 # 复制src public 目录到工作目录
 COPY  . .
 
-COPY  ./next.docker.mjs  ./next.config.mjs
-# 复制node_modules 到工作目录
+COPY  ./next.docker.ts  ./next.config.ts
 COPY --from=deps /app/node_modules ./node_modules
-# 编译项目
-RUN npm run build
+RUN bun run build
 
 # 创建运行环境
 FROM base as runtime
@@ -36,7 +31,6 @@ COPY --from=builder /app/public ./public
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/prisma ./
 
  
 
