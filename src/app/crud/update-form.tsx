@@ -2,13 +2,10 @@ import { SubmitButton } from "@/components/ui/SubmitButton";
 import { Goods } from "./action";
 
 export function UpdateForm(props: {
-  item?: Goods;
+  item: Goods;
   update: (data: FormData) => Promise<void>;
 }) {
   const item = props.item;
-  if (!item) {
-    return null;
-  }
   return (
     <form className="grid gap-5" action={props.update}>
       <label>商品名称</label>
