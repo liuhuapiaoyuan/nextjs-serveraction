@@ -3,25 +3,24 @@
 import { Goods, goodsService } from "@/service/goods.service";
 import { revalidatePath } from "next/cache";
 import { redirect, RedirectType } from "next/navigation";
- 
 
 export async function addGoods(formData: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const goods: Goods = {
-    id: `G${Date.now()}_${(Math.random()*1000).toFixed(0)}`,
+    id: `G${Date.now()}_${(Math.random() * 1000).toFixed(0)}`,
     name: formData.get("name") as string,
     price: parseFloat(formData.get("price") as string) ?? 0,
   };
-  goodsService.addGoods(goods);
+  await goodsService.addGoods(goods);
   revalidatePath("/crud");
-  redirect("/crud");
+  redirect("/crud", RedirectType.replace);
 }
 
 export async function deleteGoods(data: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const id = data.get("id") as string;
-  goodsService.deleteGoods(id);
-  revalidatePath("/crud");
+  await goodsService.deleteGoods(id);
+  redirect("/crud", RedirectType.replace);
 }
 
 export async function updateGoods(data: FormData) {
@@ -32,8 +31,8 @@ export async function updateGoods(data: FormData) {
     name: data.get("name") as string,
     price: parseFloat(data.get("price") as string) ?? 0,
   };
-  
-  goodsService.updateGoods(id,goods)
+
+  await goodsService.updateGoods(id, goods);
   revalidatePath("/crud");
   redirect("/crud", RedirectType.replace);
 }

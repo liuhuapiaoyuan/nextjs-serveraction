@@ -1,4 +1,4 @@
-import 'server-only';
+import "server-only";
 
 export type Goods = {
   id: string;
@@ -16,28 +16,31 @@ declare global {
 global.goodsList = global.goodsList ?? ([] as Goods[]);
 
 class GoodsService {
-  getGoodsList() {
-    return global.goodsList;
+  goodsList: Goods[];
+  constructor() {
+    this.goodsList = global.goodsList
   }
-  addGoods(goods: Goods) {
-    global.goodsList.push(goods);
+  async getGoodsList() {
+    return this.goodsList;
   }
-  deleteGoods(id: string) {
-    const index = global.goodsList.findIndex((item) => item.id === id);
+  async addGoods(goods: Goods) {
+    this.goodsList.push(goods);
+  }
+  async deleteGoods(id: string) {
+    const index = this.goodsList.findIndex((item) => item.id === id);
     if (index > -1) {
-      global.goodsList.splice(index, 1);
+      this.goodsList.splice(index, 1);
     }
   }
-  updateGoods(id: string, goods: Goods) {
-    const index = global.goodsList.findIndex((item) => item.id === id);
+  async updateGoods(id: string, goods: Goods) {
+    const index = this.goodsList.findIndex((item) => item.id === id);
     if (index > -1) {
-      global.goodsList[index] = goods;
+      this.goodsList[index] = goods;
     }
   }
-  getGoodsById(id: string) {
-    return global.goodsList.find((goods) => goods.id === id);
+  async getGoodsById(id: string) {
+    return this.goodsList.find((goods) => goods.id === id);
   }
 }
-
 
 export const goodsService = new GoodsService();
