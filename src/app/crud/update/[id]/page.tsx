@@ -10,17 +10,16 @@ export default async function UpdateGoodsPage({
 }) {
   const { id } = await params;
   const item = await getGoodsById(id);
-  if (!item) {
-    return (
-      <div>
-        商品不存在
-        <Link href="/crud">返回</Link>
-      </div>
-    );
-  }
   return (
     <PageContainer title="更新商品" backRef="/crud">
-      <UpdateForm update={updateGoods} item={item} />
+      {item ? (
+        <UpdateForm update={updateGoods} item={item} />
+      ) : (
+        <div>
+          商品不存在
+          <Link href="/crud">返回</Link>
+        </div>
+      )}
     </PageContainer>
   );
 }
