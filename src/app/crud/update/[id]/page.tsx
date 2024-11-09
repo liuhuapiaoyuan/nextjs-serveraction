@@ -2,7 +2,7 @@ import { PageContainer } from "@/components/ui/PageContainer";
 import Link from "next/link";
 import { getGoodsById, updateGoods } from "../../action";
 import { UpdateForm } from "../../update-form";
-
+export const runtime = "nodejs";
 export default async function UpdateGoodsPage({
   params,
 }: {

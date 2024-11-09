@@ -2,6 +2,7 @@ import { PageContainer } from "@/components/ui/PageContainer";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import Link from "next/link";
 import { deleteGoods, getGoodsList } from "./action";
+export const runtime = "nodejs";
 
 export default async function Page() {
   const goodsList = await getGoodsList();
