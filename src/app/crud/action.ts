@@ -27,7 +27,8 @@ export async function addGoods(formData: FormData) {
   };
   global.goodsList.push(goods);
   revalidatePath("/crud");
-  redirect("/crud");
+  revalidatePath("/crud/update/[id]","page");
+  redirect("/crud", RedirectType.replace);
 }
 
 export async function deleteGoods(data: FormData) {
@@ -35,6 +36,7 @@ export async function deleteGoods(data: FormData) {
   const id = data.get("id") as string;
   global.goodsList = global.goodsList.filter((goods) => goods.id !== id);
   revalidatePath("/crud");
+  revalidatePath("/crud/update/[id]","page");
 }
 
 export async function updateGoods(data: FormData) {
@@ -50,6 +52,7 @@ export async function updateGoods(data: FormData) {
     global.goodsList[index] = goods;
   }
   revalidatePath("/crud");
+  revalidatePath("/crud/update/[id]","page");
   redirect("/crud", RedirectType.replace);
 }
 export async function getGoodsList() {
