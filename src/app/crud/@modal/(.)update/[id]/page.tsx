@@ -17,7 +17,7 @@ export default async function UpdateGoodsPage({
         <UpdateForm update={updateGoods} item={item} />
       ) : (
         <div>
-          商品不存在
+          商品不存在:{id}
           <Link href="/crud">返回</Link>
         </div>
       )}

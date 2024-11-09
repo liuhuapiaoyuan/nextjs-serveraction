@@ -21,7 +21,7 @@ global.goodsList = global.goodsList ?? ([] as Goods[]);
 export async function addGoods(formData: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const goods: Goods = {
-    id: `G${Date.now()}_${Math.random()}`,
+    id: `G${Date.now()}_${(Math.random()*1000).toFixed(0)}`,
     name: formData.get("name") as string,
     price: parseFloat(formData.get("price") as string) ?? 0,
   };
